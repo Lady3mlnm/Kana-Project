@@ -398,8 +398,13 @@
   <div><img id='dtl3' src='empty.gif'></div>
 </div>
 <div style='display:inline-block;margin: 60px 0px 0px 37px'>
+  <fieldset style='height:75px;'>
+    <legend>&nbsp;Kana base&nbsp;</legend>
+    <input type='radio' name='kanaType' id='hiragana' value='hiragana' onchange='fChangeKana(this.value)' style='margin-top:24px;'><label for='hiragana'> Hiragana &nbsp;(ひらがな)</label><br>
+    <input type='radio' name='kanaType' id='katakana' value='katakana' onchange='fChangeKana(this.value)' style='margin-top:7.3px;'><label for='katakana'> Katakana &nbsp;(カタカナ)</label><br>
+  </fieldset>
   <fieldset>
-    <legend>Variant of voice acting</legend>
+    <legend>&nbsp;Variant of voice acting&nbsp;</legend>
     <input type='radio' name='voiceActing' id='rAudio0' value='0' onclick='fChangeVoice(this.value)'><label for='rAudio0'> variant 1</label><br>
     <input type='radio' name='voiceActing' id='rAudio1' value='1' onclick='fChangeVoice(this.value)'><label for='rAudio1'> variant 2</label><br>
     <input type='radio' name='voiceActing' id='rAudio2' value='2' onclick='fChangeVoice(this.value)'><label for='rAudio2'> variant 3</label><br>
@@ -413,21 +418,16 @@
       <span class='addInf' id='vlmShow'></span>
     <button type='button' id='btnPlay' onclick='fPlayStop()' value='off'><div></div></button>
   </fieldset>
-  <fieldset>
-    <legend>Kana type</legend>
-    <input type='radio' name='kanaType' id='hiragana' value='hiragana' onchange='fChangeKana(this.value)'><label for='hiragana'> Hiragana &nbsp;(ひらがな)</label><br>
-    <input type='radio' name='kanaType' id='katakana' value='katakana' onchange='fChangeKana(this.value)'><label for='katakana'> Katakana &nbsp;(カタカナ)</label><br>
-  </fieldset>
 </div>
 <div style='display:inline-block;margin: 60px 0px 0px 25px;vertical-align:top'>
-  <fieldset>
-    <legend>In the left bottom corner</legend>
+  <fieldset style='height:75px;'>
+    <legend>&nbsp;Kana in corner&nbsp;</legend>
     <input type='radio' name='corner' id='cornerR' value='R' onchange='fChangeCorner(this.value)'><label for='cornerR' style='vertical-align:sub;font-size:smaller;'> rōmaji</label><br>
     <input type='radio' name='corner' id='cornerH' value='H' onchange='fChangeCorner(this.value)'><label for='cornerH' style='vertical-align:sub;font-size:smaller;'> hiragana</label><br>
     <input type='radio' name='corner' id='cornerK' value='K' onchange='fChangeCorner(this.value)'><label for='cornerK' style='vertical-align:sub;font-size:smaller;'> katakana</label><br>
   </fieldset>
   <fieldset>
-    <legend>Appearance</legend>
+    <legend>&nbsp;Appearance&nbsp;</legend>
     <input type='checkbox' name='cbHeadings' id='cbHeadings' onchange='fChangeHeadings()'><label for='cbHeadings'> show table headings</label><br>
     <input type='checkbox' name='cbGrid' id='cbGrid' onchange='fChangeGrid()'><label for='cbGrid'> show grid under detailed kana</label><br>
     <input type='checkbox' name='cbAdjacent' id='cbAdjacent' onchange='fChangeAdjacent()'><label for='cbAdjacent'> show adjacent kana</label><br>
