@@ -316,3 +316,22 @@ function fChangeBtnPlay(newState) {
     btnPlay.lastChild.style.backgroundPosition = 'right 0'      // set 'play' symbol
   btnPlay.value = newState;
 }
+
+function fExchangeKanaType(){
+  var baseH = document.getElementById('hiragana'),
+      baseK = document.getElementById('katakana'),      cornerH = document.getElementById('cornerH'),
+      cornerK = document.getElementById('cornerK');
+      
+  if (baseH.checked) {
+    baseK.checked = true;
+    fChangeKana('katakana');
+    cornerH.checked = true; 
+    fChangeCorner('H'); }
+  else if(baseK.checked) {
+    baseH.checked = true;
+    fChangeKana('hiragana');
+    cornerK.checked = true;
+    fChangeCorner('K'); }
+    
+  fChangeKanaImages();
+}

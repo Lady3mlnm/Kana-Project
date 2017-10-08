@@ -1,7 +1,6 @@
 body {
-  width: 1000px;
+  width: 1052px;
   color: sienna;
-  margin: 0;
   padding: 15px 0 0 15px;
 }
 
@@ -83,11 +82,12 @@ div.sylH {
   font-size: 18px;
   visibility: hidden;
 }
-
+/*
 div.sylH::first-letter {
   font-size: 22px;
+  font-weight: normal;
 }
-
+*/
 div.sylK {
   position: absolute;
   bottom: 1px;
@@ -96,11 +96,11 @@ div.sylK {
   font-size: 18px;
   visibility: hidden;
 }
-
+/*
 div.sylK::first-letter {
   font-size: 22px;
 }
-
+*/
 /* -------------------------
 /   Controls
 --------------------------*/

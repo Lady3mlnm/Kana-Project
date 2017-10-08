@@ -313,7 +313,13 @@
   </tr>
 </table>
 
-<div style='display:inline-block;margin: 0 0 0 50px'>
+<div style='display:inline-block;margin: 0 0 0 128px'>
+  <fieldset style='height:75px;position:relative;'>
+    <legend>&nbsp;Kana base&nbsp;</legend>
+    <input type='radio' name='kanaType' id='radioH' value='H' onchange='fChangeBigKana(this.value)' style='margin-top:24px;'><label for='radioH'> Hiragana &nbsp;(ひらがな)</label><br>
+    <input type='radio' name='kanaType' id='radioK' value='K' onchange='fChangeBigKana(this.value)' style='margin-top:7.3px;'><label for='radioK'> Katakana &nbsp;(カタカナ)</label>
+    <button type='button' onclick='fExchangeKanaType()' style="position:absolute;bottom:10px;right:24px;"><img src='exchange-arrow.png' style='height:20px;margin:2px 2px;vertical-align:middle'></button>
+  </fieldset>
   <fieldset>
     <legend>&nbsp;Variant of voice acting&nbsp;</legend>
     <input type='radio' name='voiceActing' id='rAudio0' value='0' onclick='fChangeVoice(this.value)'><label for='rAudio0'> variant 1</label><br>
@@ -328,20 +334,17 @@
       <span class='addInf' id='vlmShow'></span>
     <button type='button' id='btnPlay' onclick='fPlayStop()' value='off'><div></div></button>
   </fieldset>
-  <fieldset>
-    <legend>&nbsp;Kana base&nbsp;</legend>
-    <input type='radio' name='kanaType' id='radioH' value='H' onchange='fChangeBigKana(this.value)'><label for='radioH'> Hiragana &nbsp;(ひらがな)</label><br>
-    <input type='radio' name='kanaType' id='radioK' value='K' onchange='fChangeBigKana(this.value)'><label for='radioK'> Katakana &nbsp;(カタカナ)</label><br>
-  </fieldset>
-  <fieldset>
+</div>
+<div style='display:inline-block;margin: 0 0 0 25px;vertical-align:top'>
+  <fieldset style='height:75px;width:224px;'>
     <legend>&nbsp;Kana in corners&nbsp;</legend>
-    <input type='radio' name='corner' id='cornerR' value='R' onchange='fChangeCorner(this.value)'><label for='cornerR' style='vertical-align:sub;font-size:smaller;'> rōmaji</label><br>
-    <input type='radio' name='corner' id='cornerH' value='H' onchange='fChangeCorner(this.value)'><label for='cornerH' style='vertical-align:sub;font-size:smaller;'> hiragana</label><br>
-    <input type='radio' name='corner' id='cornerK' value='K' onchange='fChangeCorner(this.value)'><label for='cornerK' style='vertical-align:sub;font-size:smaller;'> katakana</label><br>
+    <input type='radio' name='corner' id='cornerR' value='R' onchange='fChangeCorner(this.value)'><label for='cornerR'><span style='vertical-align:sub;font-size:smaller;'> rōmaji<span></span></label><br>
+    <input type='radio' name='corner' id='cornerH' value='H' onchange='fChangeCorner(this.value)'><label for='cornerH'><span style='vertical-align:sub;font-size:smaller;'> hiragana</span></label><br>
+    <input type='radio' name='corner' id='cornerK' value='K' onchange='fChangeCorner(this.value)'><label for='cornerK'><span style='vertical-align:sub;font-size:smaller;'> katakana</span></label>
   </fieldset>
-  <fieldset id='fsTest'>
+  <fieldset style='width:224px;'>
     <legend>&nbsp;Appearance&nbsp;</legend>
-    <input type='checkbox' name='cbHeadings' id='cbHeadings' onchange='fChangeHeadings()'><label for='cbHeadings'> show table headings</label><br>
+    <input type='checkbox' name='cbHeadings' id='cbHeadings' onchange='fChangeHeadings()'><label for='cbHeadings'> show table headings</label>
   </fieldset>
 </div>
 

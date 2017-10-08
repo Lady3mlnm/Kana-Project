@@ -246,5 +246,22 @@ function fChangeBtnPlay(newState) {
   btnPlay.value = newState;
 }
 
-//alert(getComputedStyle(document.getElementById('fsTest')).border);
-// alert(getComputedStyle(document.getElementById('fsTest')).borderColor);
+function fExchangeKanaType(){
+  var baseH = document.getElementById('radioH'),
+      baseK = document.getElementById('radioK'),
+      cornerH = document.getElementById('cornerH'),
+      cornerK = document.getElementById('cornerK');
+      
+  if (baseH.checked) {
+    baseK.checked = true;
+    fChangeBigKana('K');
+    cornerH.checked = true; 
+    fChangeCorner('H'); }
+  else if(baseK.checked) {
+    baseH.checked = true;
+    fChangeBigKana('H');
+    cornerK.checked = true;
+    fChangeCorner('K'); }
+    
+  fChangeKanaImages();
+}

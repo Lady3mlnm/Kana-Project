@@ -34,45 +34,6 @@ div.cellContainer {
   border: 5px solid transparent;
 }
 
-div.sylR {
-  position: absolute;
-  height: 20px;
-  bottom: 1px;
-  right: 5px;
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  color: sienna;
-  visibility: hidden;
-}
-
-div.sylH {
-  position: absolute;
-  height: 21px;
-  bottom: 1px;
-  right: 0px;
-  color: red;
-  font-size: 18px;
-  visibility: hidden;
-}
-
-div.sylH::first-letter {
-  font-size: 22px;
-}
-
-div.sylK {
-  position: absolute;
-  height: 21px;
-  bottom: 1px;
-  right: 0px;
-  color: blue;
-  font-size: 18px;
-  visibility: hidden;
-}
-
-div.sylK::first-letter {
-  font-size: 22px;
-}
-
 div.bigR {
   height: 30px;
   width: 50px;
@@ -113,6 +74,46 @@ div.bigK {
 div.bigK::first-letter {
   font-size: 35px;
 }
+
+div.sylR {
+  position: absolute;
+  height: 20px;
+  bottom: 1px;
+  right: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: sienna;
+  visibility: hidden;
+}
+
+div.sylH {
+  position: absolute;
+  height: 21px;
+  bottom: 1px;
+  right: 0px;
+  color: red;
+  font-size: 18px;
+  visibility: hidden;
+}
+/*
+div.sylH::first-letter {
+  font-size: 22px;
+}
+*/
+div.sylK {
+  position: absolute;
+  height: 21px;
+  bottom: 1px;
+  right: 0px;
+  color: blue;
+  font-size: 18px;
+  visibility: hidden;
+}
+/*
+div.sylK::first-letter {
+  font-size: 22px;
+}
+*/
 
 /* -------------------------
 /   Controls
