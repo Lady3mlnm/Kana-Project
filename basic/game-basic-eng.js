@@ -133,7 +133,7 @@ function fChangeVoice(j) {
 
 function fChangeVolume(j) {
   if (gVoice == '-1') {
-    alert('Ошибка! Переменная gVoice в этом месте не может иметь значение -1. Операция прервана.');
+    alert('Error! gVoice at this place can\'t be -1. Operation is stopped.');
     return; }
   audioPlayer.volume = j;
   vlmShow.innerHTML = '( '+j*100+'% )';
@@ -145,13 +145,13 @@ function fChangeVolumeMouseUp() {  //play testKana when user change volume
 }
 
 function fClearResults() {        //when user click 'Clear' button
-  if (confirm('Подтвердите, что вы действительно хотите очистить архив результатов.\nОперация является необратимой.')) {
+  if (confirm('Confirm, that you really want to clear archive.\nThis archive can not be restored.')) {
     gARCHIVE = ['','','','','','','','','','','','','','','','','',''];
     localStorage.removeItem('gb_gARCHIVE');
     var elem = document.getElementById('showArchive');
     var elem2 = elem.parentNode.getElementsByTagName('button')[0];
     elem2.style.display = 'none';
-    elem.innerHTML = 'Архив был очищен.<br><br>';
+    elem.innerHTML = 'Archive was cleared.<br><br>';
     setTimeout(function(){elem.parentNode.style.display = 'none';},6000);
     setTimeout(function(){elem2.style.display = 'block';},7000); }  // return 'Clear' button for future use
 }
@@ -162,9 +162,9 @@ function fClearResults() {        //when user click 'Clear' button
 //*********************************************************
 
 function fStartGame() {
-  if (gVoice==-1 && gCardKana == 'S'&& !confirm('Вы выбрали опции играть без озвучки и без изображений на карточках.\nХотите протестировать свои телепатические способности? Вы можете попробовать.'))
+  if (gVoice==-1 && gCardKana == 'S'&& !confirm('You choose to play without sound and without image on cards.\nDo you want to test telepathic ability? You can.'))
     return;
-  if (gCornerKana == gCardKana && !confirm('Типы кан в таблице и на карточках одинаковы.\nВы можете продолжить, но в этом действии нет вызова игры. Подтвердите продолжение.'))
+  if (gCornerKana == gCardKana && !confirm('Kana in the table and on the cards are the same.\nYou can continue but this don\'t have game challenge. Confirm continue.'))
     return;
 
   var bodyElem = document.body;
@@ -211,7 +211,7 @@ function fStartGame() {
       newCard.className = 'capS';
     } }
   else {                                // additional check just in case
-    alert('Ошибка! Переменная gCardKana имеет нестандартное значение. Операция прервана.');
+    alert('Error! gCardKana has strange meaning. Operation is stopped.');
     return; }
 
   bodyElem.addEventListener('mousemove',fDrag);  // adding events listeners to the body
@@ -293,7 +293,7 @@ function fMouseBodyEnter(e) {
 //*********************************************************
 
 function fChangeStartButton() {
-  document.getElementById('buttonStart').innerHTML = (gCornerKana == gCardKana)?'Начать':'Начать Игру';
+  document.getElementById('buttonStart').innerHTML = (gCornerKana == gCardKana)?'Start':'Start Game';
 }
 
 function fCheckAllEmpty() {
@@ -323,20 +323,6 @@ function fShowArchive() {
                    '<br>katakana &larr; sound: '+fTransform(gARCHIVE[16],gARCHIVE[17])+
                    '<br><br>';                 // '<br><br>' is for rooms for 'Clear' button
   elem.parentNode.style.display = 'block';
-  
-  
-  var elem = document.getElementById('showArchive');
-  elem.innerHTML = 'ромадзи &larr; ХИРАГАНА: '+fTransform(gARCHIVE[0],gARCHIVE[1])+
-                   '<br>ромадзи &larr; КАТАКАНА: '+fTransform(gARCHIVE[2],gARCHIVE[3])+
-                   '<br>ромадзи &larr; озвучка: '+fTransform(gARCHIVE[4],gARCHIVE[5])+
-                   '<br><br>хирагана &larr; РОМАДЗИ: '+fTransform(gARCHIVE[6],gARCHIVE[7])+
-                   '<br>хирагана &larr; КАТАКАНА: '+fTransform(gARCHIVE[8],gARCHIVE[9])+
-                   '<br>хирагана &larr; озвучка: '+fTransform(gARCHIVE[10],gARCHIVE[11])+
-                   '<br><br>катакана &larr; РОМАДЗИ: '+fTransform(gARCHIVE[12],gARCHIVE[13])+
-                   '<br>катакана &larr; ХИРАГАНА: '+fTransform(gARCHIVE[14],gARCHIVE[15])+
-                   '<br>катакана &larr; озвучка: '+fTransform(gARCHIVE[16],gARCHIVE[17])+
-                   '<br><br>';                 // '<br><br>' is for rooms for 'Clear' button
-  elem.parentNode.style.display = 'block';
 
   function fTransform(er,tm) {
   var txt, x, y;
@@ -345,12 +331,12 @@ function fShowArchive() {
     x = Number(er);
     y = Number(tm);
     if (isNaN(x) || isNaN(y)) {
-      alert('Некритическая ошибка в процессе чтения архива результатов. Значения ['+er+', '+tm+'] будут заменены на \'—\'');
+      alert('Not critical error during reading archive of results. Values ['+er+', '+tm+'] will be replace to \'—\'');
       txt = '—'; }
     else if (x == 1)
-      txt = x+' ошибка, '+Math.floor(y/60)+' мин '+y%60+' сек'
+      txt = x+' error, '+Math.floor(y/60)+' min '+y%60+' sec'
     else
-      txt = 'Количество ошибок: ' + x + ', '+Math.floor(y/60)+' мин '+y%60+' сек';   }
+      txt = x+' errors, '+Math.floor(y/60)+' min '+y%60+' sec';   }
   return txt;
   }
 }
@@ -395,19 +381,19 @@ function fVictory() {
   fShowArchive();
 
   if (gCornerKana == gCardKana) {
-    alert('Финиш!\nКоличество ошибок: '+curErrors+'\nВремя игры: '+Math.floor(t/60)+' мин '+t%60+' сек\n\nПерезагрузите страницу для продолжения.');
+    alert('Finish!\nNumber of errors: '+curErrors+'\nTime of game: '+Math.floor(t/60)+' min '+t%60+' sec\n\nReload page to continue.');
     return; }
 
   if (fCheckAll0() && curErrors==0) {
-    if (confirm('Количество ошибок: '+curErrors+'\nВремя игры: '+Math.floor(t/60)+' мин '+t%60+' сек\n\n'+
-               'СУПЕР!!\nВы смогли пройти все 9 типов игры без ошибок!\nПрошу принять мой скромный подарок. Вам нравится аниме "Сейлор Мун"?\nЕсли нажмёте OK, то услышите одну из моих любимых песен.')) {
+    if (confirm('Number of errors: '+curErrors+'\nTime of game: '+Math.floor(t/60)+' min '+t%60+' sec\n\n'+
+               'SUPER!!\nYou mastered all 9 types of game without errors!\nAnd here my humble gift to you. Do you like anime "Sailor Moon"?\nIf you press OK then hear one of my favorite songs.')) {
       srcMp3.src = 'danger-flowers.mp3';
       srcOgg.src = 'danger-flowers.ogg';
       audioPlayer.load();
       audioPlayer.play();
     } }
   else
-    alert('Хорошо сделано!\nКоличество ошибок: '+curErrors+'\nВремя игры: '+Math.floor(t/60)+' мин '+t%60+' сек\n\nПерезагрузите страницу для продолжения.');
+    alert('Well done!\nNumber of errors: '+curErrors+'\nTime of game: '+Math.floor(t/60)+' min '+t%60+' sec\n\nReload page for new game.');
 
   function fUpdateArchive(ind, er, tm) {
     if (gARCHIVE[ind] === '' || gARCHIVE[ind] > er) {

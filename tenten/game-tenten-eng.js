@@ -5,7 +5,7 @@
 
 //known limit: if user made more than (9007199254740991-1000) clicks without page reload than bug can occur
 
-var arKana  = ['kya','kyu','kyo', 'sha','shu','sho', 'cha','chu','cho', 'nya','nyu','nyo', 'hya','hyu','hyo', 'mya','myu','myo', 'rya','ryu','ryo', 'gya','gyu','gyo', 'ja','ju','jo', 'bya','byu','byo', 'pya','pyu','pyo'],
+var arKana  = ['ga', 'gi', 'gu', 'ge', 'go', 'za', 'ji', 'zu', 'ze', 'zo', 'da', 'ji2', 'zu2', 'de', 'do', 'ba', 'bi', 'bu', 'be', 'bo', 'pa', 'pi', 'pu', 'pe', 'po'],
     testKana,   // random kana for testing of voice choice
     audioPlayer = document.getElementById('audioPlayer'), // elements for audio output
     srcMp3 = document.getElementById('srcMp3'),    // source of MP3
@@ -34,33 +34,33 @@ var arKana  = ['kya','kyu','kyo', 'sha','shu','sho', 'cha','chu','cho', 'nya','n
 function fLoad() {   // Whenever possible, I've tried to defend against simple errors during loading
   var j;
 
-  testKana = arKana[Math.floor(Math.random()*33)];
+  testKana = arKana[Math.floor(Math.random()*25)];
   document.getElementById('testR').innerHTML = document.getElementById(testKana).getElementsByClassName('sylR')[0].innerHTML;
   document.getElementById('testH').innerHTML = document.getElementById(testKana).getElementsByClassName('sylH')[0].innerHTML;
   document.getElementById('testK').innerHTML = document.getElementById(testKana).getElementsByClassName('sylK')[0].innerHTML;
 
-  if (localStorage.gc_gCornerKana == 'R' || localStorage.gc_gCornerKana == 'K')        // kana type in corner of table cells
-    gCornerKana = localStorage.gc_gCornerKana
+  if (localStorage.gt_gCornerKana == 'R' || localStorage.gt_gCornerKana == 'K')        // kana type in corner of table cells
+    gCornerKana = localStorage.gt_gCornerKana
   else
     gCornerKana = 'H';
   fChangeCorner(gCornerKana);
   document.getElementById('corner'+gCornerKana).checked = true;
 
-  if (localStorage.gc_gCardKana == 'K' || localStorage.gc_gCardKana == 'H' || localStorage.gc_gCardKana == 'S')        // kana type on cards
-    gCardKana = localStorage.gc_gCardKana
+  if (localStorage.gt_gCardKana == 'K' || localStorage.gt_gCardKana == 'H' || localStorage.gt_gCardKana == 'S')        // kana type on cards
+    gCardKana = localStorage.gt_gCardKana
   else
     gCardKana = 'R';
   fChangeCard(gCardKana);
   document.getElementById('card'+gCardKana).checked = true;
 
-  j = Number(localStorage.gc_gVoice);                    // variant of voice acting, current 0, 1 or -1 for 'no sound'
+  j = Number(localStorage.gt_gVoice);                    // variant of voice acting, current 0, 1 or -1 for 'no sound'
   gVoice = (isNaN(j))?0:j;
   document.getElementById('rAudio'+gVoice).checked = true;
   if (gVoice >= 0)
     fLoadNewAudio(testKana);
 
-  if (localStorage.gc_gVolume !== undefined && localStorage.gc_gVolume !== 'undefined')      // volume of audio, array
-    gVolume = localStorage.gc_gVolume.split(',')
+  if (localStorage.gt_gVolume !== undefined && localStorage.gt_gVolume !== 'undefined')      // volume of audio, array
+    gVolume = localStorage.gt_gVolume.split(',')
   else
     gVolume = [0.8, 0.5];
   if (gVoice != '-1') {
@@ -75,10 +75,10 @@ function fLoad() {   // Whenever possible, I've tried to defend against simple e
 }
 
 function fUnload() {
-  localStorage.setItem('gc_gCornerKana', gCornerKana);
-  localStorage.setItem('gc_gCardKana', gCardKana);
-  localStorage.setItem('gc_gVoice', gVoice);
-  localStorage.setItem('gc_gVolume', gVolume);
+  localStorage.setItem('gt_gCornerKana', gCornerKana);
+  localStorage.setItem('gt_gCardKana', gCardKana);
+  localStorage.setItem('gt_gVoice', gVoice);
+  localStorage.setItem('gt_gVolume', gVolume);
 }
 
 
@@ -89,7 +89,7 @@ function fUnload() {
 function fChangeCorner(newValue) {
   var oV = document.getElementsByClassName('syl'+gCornerKana);   // ov - Old Value
   var nV = document.getElementsByClassName('syl'+newValue);      // nv - New Value
-  for (var i=0; i<33; i++) {
+  for (var i=0; i<25; i++) {
     oV[i].style.visibility = 'hidden';
     nV[i].style.visibility = 'visible'; }
   gCornerKana = newValue;
@@ -120,7 +120,7 @@ function fChangeVoice(j) {
 
 function fChangeVolume(j) {
   if (gVoice == '-1') {
-    alert('Ошибка! Переменная gVoice в этом месте не может иметь значение -1. Операция прервана.');
+    alert('Error! gVoice at this place can\'t be -1. Operation is stopped.');
     return; }
   audioPlayer.volume = j;
   vlmShow.innerHTML = '( '+j*100+'% )';
@@ -137,9 +137,9 @@ function fChangeVolumeMouseUp() {  //play testKana when user change volume
 //*********************************************************
 
 function fStartGame() {
-  if (gVoice==-1 && gCardKana == 'S'&& !confirm('Вы выбрали опции играть без озвучки и без изображений на карточках.\nХотите протестировать свои телепатические способности? Вы можете попробовать.'))
+  if (gVoice==-1 && gCardKana == 'S'&& !confirm('You choose to play without sound and without image on cards.\nDo you want to test telepathic ability? You can.'))
     return;
-  if (gCornerKana == gCardKana && !confirm('Типы кан в таблице и на карточках одинаковы.\nВы можете продолжить, но в этом действии нет вызова игры. Подтвердите продолжение.'))
+  if (gCornerKana == gCardKana && !confirm('Kana in the table and on the cards are the same.\nYou can continue but this don\'t have game challenge. Confirm continue.'))
     return;
 
   var bodyElem = document.body;
@@ -152,41 +152,41 @@ function fStartGame() {
   var listBig = document.getElementsByClassName('bigKana');         // filling 'Big Kana' in the table
   var newContent = (gCardKana=='S')?'H':gCardKana;
   var listCard = document.getElementsByClassName('syl'+newContent);
-  for (j=32; j>=0; j--) {
+  for (j=24; j>=0; j--) {
     listBig[j].innerHTML = listCard[j].innerHTML;    //transfer content of corner kana to 'big kana' in every cell  //convert corner kana in 'big kana' in every cell
     listBig[j].className = 'big'+newContent; }
 
   if (gCardKana == 'H') {                               //creating cards
-    for (j=0; j<33; j++) {
+    for (j=0; j<25; j++) {
       newCard = fGenerateNewCard('div',arKana[j]);
       newCard.className = 'capH';
       newCard.innerHTML = document.getElementById(arKana[j]).getElementsByClassName('sylH')[0].innerHTML;
     } }
   else if (gCardKana == 'K') {
-    for (j=32; j>=0; j--) {
+    for (j=24; j>=0; j--) {
       newCard = fGenerateNewCard('div',arKana[j]);
       newCard.className = 'capK';
       newCard.innerHTML = document.getElementById(arKana[j]).getElementsByClassName('sylK')[0].innerHTML;
     } }
   else if (gCardKana == 'R') {
-    for (j=0; j<33; j++) {
+    for (j=0; j<25; j++) {
       newCard = fGenerateNewCard('div',arKana[j]);
       newCard.className = 'capR';
       newCard.innerHTML = document.getElementById(arKana[j]).getElementsByClassName('sylR')[0].innerHTML;
     } }
   else if (gCardKana == 'S') {
-    for (j=32; j>=0; j--) {
+    for (j=24; j>=0; j--) {
       newCard = fGenerateNewCard('div',arKana[j]);
       newCard.className = 'capS';
     } }
   else {                                // additional check just in case
-    alert('Ошибка! Переменная gCardKana имеет нестандартное значение. Операция прервана.');
+    alert('Error! gCardKana has strange meaning. Operation is stopped.');
     return; }
 
   bodyElem.addEventListener('mousemove',fDrag);  // adding events listeners to the body
   bodyElem.addEventListener('mouseup',fDragEndBody);
   bodyElem.addEventListener('mouseenter',fMouseBodyEnter);
-  curRemain = 33;
+  curRemain = 25;
   curErrors = 0;
   curDate = new Date();
 }
@@ -262,14 +262,14 @@ function fMouseBodyEnter(e) {
 //*********************************************************
 
 function fChangeStartButton() {
-  document.getElementById('buttonStart').innerHTML = (gCornerKana == gCardKana)?'Начать':'Начать Игру';
+  document.getElementById('buttonStart').innerHTML = (gCornerKana == gCardKana)?'Start':'Start Game';
 }
 
 function fGenerateNewCard (cardType, kana) {  // Generate 1 new card, clear outwardly but with value = kana
   var newCard = document.createElement(cardType);
   newCard.style.position = 'absolute';
   newCard.style.left = Math.floor(Math.random()*350)+450+'px';
-  newCard.style.top = Math.floor(Math.random()*600)+'px';
+  newCard.style.top = Math.floor(Math.random()*350)+'px';
   newCard.style.zIndex = Math.floor(Math.random()*1000);
   newCard.value = kana;
   newCard.addEventListener('mousedown',fDragStart);
@@ -285,10 +285,10 @@ function fVictory() {
 
   var t = Math.round((new Date()-curDate)/1000)       //Time of games in seconds
   if (gCornerKana == gCardKana) {
-    alert('Финиш!\nКоличество ошибок: '+curErrors+'\nВремя игры: '+Math.floor(t/60)+' мин '+t%60+' сек\n\nПерезагрузите страницу для продолжения.');
+    alert('Finish!\nNumber of errors: '+curErrors+'\nTime of game: '+Math.floor(t/60)+' min '+t%60+' sec\n\nReload page to continue.');
     return; }
   else
-    alert('Хорошо сделано!\nКоличество ошибок: '+curErrors+'\nВремя игры: '+Math.floor(t/60)+' мин '+t%60+' сек\n\nПерезагрузите страницу для продолжения.');
+    alert('Well done!\nNumber of errors: '+curErrors+'\nTime of game: '+Math.floor(t/60)+' min '+t%60+' sec\n\nReload page for new game.');
 }
 
 function fLoadNewAudio(k){

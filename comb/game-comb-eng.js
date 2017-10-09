@@ -120,7 +120,7 @@ function fChangeVoice(j) {
 
 function fChangeVolume(j) {
   if (gVoice == '-1') {
-    alert('Ошибка! Переменная gVoice в этом месте не может иметь значение -1. Операция прервана.');
+    alert('Error! gVoice at this place can\'t be -1. Operation is stopped.');
     return; }
   audioPlayer.volume = j;
   vlmShow.innerHTML = '( '+j*100+'% )';
@@ -137,9 +137,9 @@ function fChangeVolumeMouseUp() {  //play testKana when user change volume
 //*********************************************************
 
 function fStartGame() {
-  if (gVoice==-1 && gCardKana == 'S'&& !confirm('Вы выбрали опции играть без озвучки и без изображений на карточках.\nХотите протестировать свои телепатические способности? Вы можете попробовать.'))
+  if (gVoice==-1 && gCardKana == 'S'&& !confirm('You choose to play without sound and without image on cards.\nDo you want to test telepathic ability? You can.'))
     return;
-  if (gCornerKana == gCardKana && !confirm('Типы кан в таблице и на карточках одинаковы.\nВы можете продолжить, но в этом действии нет вызова игры. Подтвердите продолжение.'))
+  if (gCornerKana == gCardKana && !confirm('Kana in the table and on the cards are the same.\nYou can continue but this don\'t have game challenge. Confirm continue.'))
     return;
 
   var bodyElem = document.body;
@@ -180,7 +180,7 @@ function fStartGame() {
       newCard.className = 'capS';
     } }
   else {                                // additional check just in case
-    alert('Ошибка! Переменная gCardKana имеет нестандартное значение. Операция прервана.');
+    alert('Error! gCardKana has strange meaning. Operation is stopped.');
     return; }
 
   bodyElem.addEventListener('mousemove',fDrag);  // adding events listeners to the body
@@ -262,7 +262,7 @@ function fMouseBodyEnter(e) {
 //*********************************************************
 
 function fChangeStartButton() {
-  document.getElementById('buttonStart').innerHTML = (gCornerKana == gCardKana)?'Начать':'Начать Игру';
+  document.getElementById('buttonStart').innerHTML = (gCornerKana == gCardKana)?'Start':'Start Game';
 }
 
 function fGenerateNewCard (cardType, kana) {  // Generate 1 new card, clear outwardly but with value = kana
@@ -285,10 +285,10 @@ function fVictory() {
 
   var t = Math.round((new Date()-curDate)/1000)       //Time of games in seconds
   if (gCornerKana == gCardKana) {
-    alert('Финиш!\nКоличество ошибок: '+curErrors+'\nВремя игры: '+Math.floor(t/60)+' мин '+t%60+' сек\n\nПерезагрузите страницу для продолжения.');
+    alert('Finish!\nNumber of errors: '+curErrors+'\nTime of game: '+Math.floor(t/60)+' min '+t%60+' sec\n\nReload page to continue.');
     return; }
   else
-    alert('Хорошо сделано!\nКоличество ошибок: '+curErrors+'\nВремя игры: '+Math.floor(t/60)+' мин '+t%60+' сек\n\nПерезагрузите страницу для продолжения.');
+    alert('Well done!\nNumber of errors: '+curErrors+'\nTime of game: '+Math.floor(t/60)+' min '+t%60+' sec\n\nReload page for new game.');
 }
 
 function fLoadNewAudio(k){

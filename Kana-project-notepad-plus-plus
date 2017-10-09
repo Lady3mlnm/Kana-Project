@@ -1,6 +1,7 @@
 <NotepadPlus>
     <Project name="Kana-Project">
         <File name="index.html" />
+        <File name="index-eng.html" />
         <Folder name="basic">
             <File name="basic\game-basic.css" />
             <File name="basic\game-basic.html" />
@@ -8,6 +9,10 @@
             <File name="basic\table-basic.css" />
             <File name="basic\table-basic.html" />
             <File name="basic\table-basic.js" />
+            <File name="basic\game-basic-eng.html" />
+            <File name="basic\game-basic-eng.js" />
+            <File name="basic\table-basic-eng.html" />
+            <File name="basic\table-basic-eng.js" />
         </Folder>
         <Folder name="tenten">
             <File name="tenten\game-tenten.css" />
@@ -16,6 +21,10 @@
             <File name="tenten\table-tenten.css" />
             <File name="tenten\table-tenten.html" />
             <File name="tenten\table-tenten.js" />
+            <File name="tenten\game-tenten-eng.html" />
+            <File name="tenten\game-tenten-eng.js" />
+            <File name="tenten\table-tenten-eng.html" />
+            <File name="tenten\table-tenten-eng.js" />
         </Folder>
         <Folder name="comb">
             <File name="comb\game-comb.css" />
@@ -24,6 +33,10 @@
             <File name="comb\table-comb.css" />
             <File name="comb\table-comb.html" />
             <File name="comb\table-comb.js" />
+            <File name="comb\game-comb-eng.html" />
+            <File name="comb\game-comb-eng.js" />
+            <File name="comb\table-comb-eng.html" />
+            <File name="comb\table-comb-eng.js" />
         </Folder>
     </Project>
 </NotepadPlus>

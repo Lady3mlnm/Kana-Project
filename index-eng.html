@@ -38,7 +38,7 @@
     // Нельзя удовлетвориться простым прописание значения в свойстве src тега iframe,
     // поскольку содержимое iframe при перезагрузке сохраняется.
     function fInitialization() {
-      document.getElementsByTagName('iframe')[0].src='basic/table-basic.html';
+      document.getElementsByTagName('iframe')[0].src='basic/table-basic-eng.html';
       console.log('Initialization is done');
     }
     // изменяем местоположение стиля "активной вкладки"
@@ -57,13 +57,13 @@
 
 <!-- Панель навигации -->
 <nav id='navBar'>
-  <a href='basic/table-basic.html' target='mainFrame' onclick='changeTab(this);' class='active'>таблица-базовая</a>
-  <a href='tenten/table-tenten.html' target='mainFrame' onclick='changeTab(this);'>таблица-дакутэн</a>
-  <a href='comb/table-comb.html' target='mainFrame' onclick='changeTab(this);'>таблица-3</a>
+  <a href='basic/table-basic-eng.html' target='mainFrame' onclick='changeTab(this);' class='active'>table-basic</a>
+  <a href='tenten/table-tenten-eng.html' target='mainFrame' onclick='changeTab(this);'>table-tenten</a>
+  <a href='comb/table-comb-eng.html' target='mainFrame' onclick='changeTab(this);'>table-comb</a>
 
-  <a href='basic/game-basic.html' target='mainFrame' onclick='changeTab(this);' id='firstGame'>игра-базовая</a>
-  <a href='tenten/game-tenten.html' target='mainFrame' onclick='changeTab(this);'>игра-дакутэн</a>
-  <a href='comb/game-comb.html' target='mainFrame' onclick='changeTab(this);'>игра-3</a>  
+  <a href='basic/game-basic-eng.html' target='mainFrame' onclick='changeTab(this);' id='firstGame'>game-basic</a>
+  <a href='tenten/game-tenten-eng.html' target='mainFrame' onclick='changeTab(this);'>game-tenten</a>
+  <a href='comb/game-comb-eng.html' target='mainFrame' onclick='changeTab(this);'>game-comb</a>  
 </nav>
 
 <!-- Плавающий фрейм, внутри которого выводим другие страницы. В нашем случае это различные интерфейсы. -->
