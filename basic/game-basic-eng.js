@@ -162,15 +162,15 @@ function fClearResults() {        //when user click 'Clear' button
 //*********************************************************
 
 function fStartGame() {
-  if (gVoice==-1 && gCardKana == 'S'&& !confirm('You choose to play without sound and without image on cards.\nDo you want to test telepathic ability? You can.'))
-    return;
+  /* if (gVoice==-1 && gCardKana == 'S'&& !confirm('You choose to play without sound and without image on cards.\nDo you want to test telepathic ability? You can.'))
+    return; */
   if (gCornerKana == gCardKana && !confirm('Kana in the table and on the cards are the same.\nYou can continue but this don\'t have game challenge. Confirm continue.'))
     return;
 
   var bodyElem = document.body;
   bodyElem.removeChild(document.getElementById('cornerR').parentNode);       // remove control panel
   bodyElem.removeChild(document.getElementById('cardR').parentNode);
-  bodyElem.removeChild(document.getElementById('rAudio-1').parentNode);
+  bodyElem.removeChild(document.getElementById('rAudio0').parentNode);
   bodyElem.removeChild(document.getElementById('buttonStart'));
   document.getElementById('showArchive').parentNode.style.display = 'none';
 
@@ -225,9 +225,11 @@ function fStartGame() {
 function fDragStart(e) {
   e.preventDefault();
   curCard = e.currentTarget;
-  if (gVoice != '-1') {
+  if (gCardKana == 'S') {
     fLoadNewAudio(curCard.value);
     audioPlayer.play(); }
+  else
+    audioPlayer.pause();
   curCard.style.zIndex = ++curZ;
   curCard.style.opacity = 0.75;
   curCard.style.pointerEvents = 'none';
@@ -256,6 +258,9 @@ function fDragEndCell(elem) {
   if (!curB)
     return;
   if (elem.id == curCard.value) {
+    fLoadNewAudio(curCard.value);  //play kana
+    audioPlayer.play();
+    
     if (curCard.classList[0] == 'capK')
       elem.lastChild.style.borderColor = 'lightgoldenrodyellow'
     else

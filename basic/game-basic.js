@@ -162,15 +162,15 @@ function fClearResults() {        //when user click 'Clear' button
 //*********************************************************
 
 function fStartGame() {
-  if (gVoice==-1 && gCardKana == 'S'&& !confirm('Вы выбрали опции играть без озвучки и без изображений на карточках.\nХотите протестировать свои телепатические способности? Вы можете попробовать.'))
-    return;
+  /* if (gVoice==-1 && gCardKana == 'S'&& !confirm('Вы выбрали опции играть без озвучки и без изображений на карточках.\nХотите протестировать свои телепатические способности? Вы можете попробовать.'))
+    return; */
   if (gCornerKana == gCardKana && !confirm('Типы кан в таблице и на карточках одинаковы.\nВы можете продолжить, но в этом действии нет вызова игры. Подтвердите продолжение.'))
     return;
 
   var bodyElem = document.body;
   bodyElem.removeChild(document.getElementById('cornerR').parentNode);       // remove control panel
   bodyElem.removeChild(document.getElementById('cardR').parentNode);
-  bodyElem.removeChild(document.getElementById('rAudio-1').parentNode);
+  bodyElem.removeChild(document.getElementById('rAudio0').parentNode);
   bodyElem.removeChild(document.getElementById('buttonStart'));
   document.getElementById('showArchive').parentNode.style.display = 'none';
 
@@ -225,9 +225,11 @@ function fStartGame() {
 function fDragStart(e) {
   e.preventDefault();
   curCard = e.currentTarget;
-  if (gVoice != '-1') {
+  if (gCardKana == 'S') {  //2
     fLoadNewAudio(curCard.value);
     audioPlayer.play(); }
+  else
+    audioPlayer.pause();
   curCard.style.zIndex = ++curZ;
   curCard.style.opacity = 0.75;
   curCard.style.pointerEvents = 'none';
@@ -256,6 +258,9 @@ function fDragEndCell(elem) {
   if (!curB)
     return;
   if (elem.id == curCard.value) {
+
+    fLoadNewAudio(curCard.value);  //play kana
+    audioPlayer.play();
     if (curCard.classList[0] == 'capK')
       elem.lastChild.style.borderColor = 'lightgoldenrodyellow'
     else
