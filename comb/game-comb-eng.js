@@ -53,7 +53,7 @@ function fLoad() {   // Whenever possible, I've tried to defend against simple e
   fChangeCard(gCardKana);
   document.getElementById('card'+gCardKana).checked = true;
 
-  j = Number(localStorage.gc_gVoice);                    // variant of voice acting, current 0, 1 or -1 for 'no sound'
+  j = Number(localStorage.gc_gVoice);                    // variant of voice acting, current 0, 1, 2
   gVoice = (isNaN(j))?0:j;
   document.getElementById('rAudio'+gVoice).checked = true;
   if (gVoice >= 0)
@@ -62,7 +62,7 @@ function fLoad() {   // Whenever possible, I've tried to defend against simple e
   if (localStorage.gc_gVolume !== undefined && localStorage.gc_gVolume !== 'undefined')      // volume of audio, array
     gVolume = localStorage.gc_gVolume.split(',')
   else
-    gVolume = [0.8, 0.5];
+    gVolume = [0.5, 0.9, 0.5];
   if (gVoice != '-1') {
     vlmShow.innerHTML = '( '+gVolume[gVoice]*100+'% )';
     document.getElementById('vlmRange').value = gVolume[gVoice];

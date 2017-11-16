@@ -32,7 +32,7 @@ function fLoad() {      // Whenever possible, I tried to defend against simple e
     document.getElementById('cbHeadings').checked = false;
   fChangeHeadings();
 
-  j = Number(localStorage.tt_gVoice);                    // variant of voice acting, current 0 and 1
+  j = Number(localStorage.tt_gVoice);                    // variant of voice acting, current 0, 1, 2
   gVoice = (isNaN(j))?0:j;
   document.getElementById('rAudio'+gVoice).checked = true;
   srcMp3.src = 'audio-'+gVoice+'/ga.mp3';
@@ -50,7 +50,7 @@ function fLoad() {      // Whenever possible, I tried to defend against simple e
   if (localStorage.tt_gVolume !== undefined && localStorage.tt_gVolume !== 'undefined')      // volume of audio, array
     gVolume = localStorage.tt_gVolume.split(',')
   else
-    gVolume = [0.8, 0.5];
+    gVolume = [0.5, 0.9, 0.5];
   vlmShow.innerHTML = '( '+gVolume[gVoice]*100+'% )';
   document.getElementById('vlmRange').value = gVolume[gVoice];
   audioPlayer.volume = gVolume[gVoice];
