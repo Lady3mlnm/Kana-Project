@@ -5,14 +5,16 @@
 
 //known limit: if user made more than (9007199254740991-1000) clicks without page reload than bug can occur
 
-var arKana = ['a','i','u','e','o','ka','ki','ku','ke','ko','sa','shi','su','se','so','ta','chi','tsu','te','to','na','ni','nu','ne','no','ha','hi','fu','he','ho','ma','mi','mu','me','mo','ya','yu','yo','ra','ri','ru','re','ro','wa','wo','n'],
-    testKana,   // random kana for testing of voice choice
+var arKana = ['a','i','u','e','o','ka','ki','ku','ke','ko','sa','shi','su','se','so','ta','chi',
+              'tsu','te','to','na','ni','nu','ne','no','ha','hi','fu','he','ho','ma','mi','mu',
+              'me','mo','ya','yu','yo','ra','ri','ru','re','ro','wa','wo','n'],
+    testKana,             // random kana for testing of voice choice
     audioPlayer = document.getElementById('audioPlayer'), // elements for audio output
     srcMp3 = document.getElementById('srcMp3'),    // source of MP3
     srcOgg = document.getElementById('srcOgg'),
     vlmShow = document.getElementById('vlmShow'),  // volume Show
-    gCornerKana,           // kana type in corner of table cells: 'R' for rōmaji, 'H' for hiragana, 'K' for katakana
-    gCardKana,             // kana type on cards, possible values 'R','H','K','S'
+    gCornerKana,          // kana type in corner of table cells: 'R' for rōmaji, 'H' for hiragana, 'K' for katakana
+    gCardKana,            // kana type on cards, possible values 'R','H','K','S'
     gVoice,               // variant of voice acting, current 0, 1, 2 or -1 for 'no sound'
     gVolume,              // volume of audio, array
     gARCHIVE,             // archive, containing results of previous games. WARNING: there're problems with .every(func) method, if array contained undefined values, so it's safer to use ''
@@ -35,35 +37,35 @@ var arKana = ['a','i','u','e','o','ka','ki','ku','ke','ko','sa','shi','su','se',
 //   LOAD / UNLOAD
 //*********************************************************
 
-function fLoad() {   // Whenever possible, I've tried to defend against simple errors during loading
+function fLoad() {   // Whenever possible, I've tried to secure against simple errors during loading
   var j;
 
-  testKana = arKana[Math.floor(Math.random()*46)];
+  testKana = arKana[Math.floor(Math.random()*46)];                    // show random kana in special field as example of kana
   document.getElementById('testR').innerHTML = document.getElementById(testKana).getElementsByClassName('sylR')[0].innerHTML;
   document.getElementById('testH').src = 'hiragana/'+testKana+'.png';
   document.getElementById('testK').src = 'katakana/'+testKana+'.png';
 
-  if (localStorage.gb_gCornerKana == 'R' || localStorage.gb_gCornerKana == 'K')        // kana type in corner of table cells
+  if (localStorage.gb_gCornerKana == 'R' || localStorage.gb_gCornerKana == 'K')         // kana type in corner of table cells
     gCornerKana = localStorage.gb_gCornerKana
   else
     gCornerKana = 'H';
   fChangeCorner(gCornerKana);
   document.getElementById('corner'+gCornerKana).checked = true;
 
-  if (localStorage.gb_gCardKana == 'K' || localStorage.gb_gCardKana == 'H' || localStorage.gb_gCardKana == 'S')        // kana type on cards
+  if (localStorage.gb_gCardKana == 'K' || localStorage.gb_gCardKana == 'H' || localStorage.gb_gCardKana == 'S')  // kana type on cards
     gCardKana = localStorage.gb_gCardKana
   else
     gCardKana = 'R';
   fChangeCard(gCardKana);
   document.getElementById('card'+gCardKana).checked = true;
 
-  j = Number(localStorage.gb_gVoice);                    // variant of voice acting, current 0, 1, 2, 3
+  j = Number(localStorage.gb_gVoice);                                 // variant of voice acting, current 0, 1, 2, 3
   gVoice = (isNaN(j))?0:j;
   document.getElementById('rAudio'+gVoice).checked = true;
   if (gVoice >= 0)
     fLoadNewAudio(testKana);
 
-  if (localStorage.gb_gVolume !== undefined && localStorage.gb_gVolume !== 'undefined')      // volume of audio, array
+  if (localStorage.gb_gVolume !== undefined && localStorage.gb_gVolume !== 'undefined')  // volume of audio, array
     gVolume = localStorage.gb_gVolume.split(',')
   else
     gVolume = [0.5, 0.9, 0.5, 0.3];
@@ -99,9 +101,10 @@ function fUnload() {
 //   CONTROL PANEL
 //*********************************************************
 
+/* when user changes type of kana in table */
 function fChangeCorner(newValue) {
-  var oV = document.getElementsByClassName('syl'+gCornerKana);   // ov - Old Value
-  var nV = document.getElementsByClassName('syl'+newValue);      // nv - New Value
+  var oV = document.getElementsByClassName('syl'+gCornerKana);   // oV - Old Value
+  var nV = document.getElementsByClassName('syl'+newValue);      // nV - New Value
   for (var i=0; i<46; i++) {
     oV[i].style.visibility = 'hidden';
     nV[i].style.visibility = 'visible'; }
@@ -109,6 +112,7 @@ function fChangeCorner(newValue) {
   fChangeStartButton();
 }
 
+/* when user changes type of kana on cards */
 function fChangeCard(newValue) {
   document.getElementById('test'+gCardKana).style.display = 'none';
   document.getElementById('test'+newValue).style.display = 'block';
@@ -116,6 +120,7 @@ function fChangeCard(newValue) {
   fChangeStartButton();
 }
 
+/* when user changes type of voiceover */
 function fChangeVoice(j) {
   gVoice = Number(j);
   if (gVoice >= 0) {
@@ -131,6 +136,7 @@ function fChangeVoice(j) {
     document.getElementById('vlmRange').disabled = true; }
 }
 
+/* when user changes volume of voiceover */
 function fChangeVolume(j) {
   if (gVoice == '-1') {
     alert('Error! gVoice at this place can\'t be -1. Operation is stopped.');
@@ -140,10 +146,12 @@ function fChangeVolume(j) {
   gVolume[gVoice] = j;
 }
 
+/* when user releases a mouse button over regulator of volume */
 function fChangeVolumeMouseUp() {  //play testKana when user change volume
   audioPlayer.play();
 }
 
+/* when user clicks on button "Clear" (archive of results) */
 function fClearResults() {        //when user click 'Clear' button
   if (confirm('Confirm, that you really want to clear archive.\nThis archive can not be restored.')) {
     gARCHIVE = ['','','','','','','','','','','','','','','','','',''];
@@ -161,6 +169,7 @@ function fClearResults() {        //when user click 'Clear' button
 //   GAME CONTROL
 //*********************************************************
 
+/* when user clicks button "Start Game" */
 function fStartGame() {
   /* if (gVoice==-1 && gCardKana == 'S'&& !confirm('You choose to play without sound and without image on cards.\nDo you want to test telepathic ability? You can.'))
     return; */
@@ -210,11 +219,11 @@ function fStartGame() {
       newCard = fGenerateNewCard('div',arKana[j]);
       newCard.className = 'capS';
     } }
-  else {                                // additional check just in case
+  else {                                             // additional check just in case
     alert('Error! gCardKana has strange meaning. Operation is stopped.');
     return; }
 
-  bodyElem.addEventListener('mousemove',fDrag);  // adding events listeners to the body
+  bodyElem.addEventListener('mousemove',fDrag);      // adding events listeners to the body
   bodyElem.addEventListener('mouseup',fDragEndBody);
   bodyElem.addEventListener('mouseenter',fMouseBodyEnter);
   curRemain = 46;
@@ -222,6 +231,7 @@ function fStartGame() {
   curDate = new Date();
 }
 
+/* when user begins to drag a card */
 function fDragStart(e) {
   e.preventDefault();
   curCard = e.currentTarget;
@@ -240,6 +250,7 @@ function fDragStart(e) {
   curBeginT = curCard.style.top;
 }
 
+/* when user drags a card */
 function fDrag(e) {
   if (curB) {
     e.preventDefault(); // just in case
@@ -247,6 +258,7 @@ function fDrag(e) {
     curCard.style.top = e.clientY - curY + 'px'; }
 }
 
+/* when users releases mouse button */
 function fDragEndBody() {
   if (curB) {
     curCard.style.opacity = 1;
@@ -254,6 +266,7 @@ function fDragEndBody() {
     curB = false; }
 }
 
+/* when user releases button above cell of kana table, 'elem' contains this cell of table */
 function fDragEndCell(elem) {
   if (!curB)
     return;
@@ -287,6 +300,7 @@ function fDragEndCell(elem) {
     curErrors++; }
 }
 
+/* when user moves the mouse pointer onto an image */
 function fMouseBodyEnter(e) {
   if (curB && e.buttons == 0)
     fDragEndBody();
@@ -297,10 +311,12 @@ function fMouseBodyEnter(e) {
 //   WORKING FUNCTIONS
 //*********************************************************
 
+/* change sign of Start button: 'Start' or 'Start Game' */
 function fChangeStartButton() {
   document.getElementById('buttonStart').innerHTML = (gCornerKana == gCardKana)?'Start':'Start Game';
 }
 
+/* check archive array */
 function fCheckAllEmpty() {
   var j, lng = gARCHIVE.length;
   for (j=0; j<lng; j=j+2)
@@ -308,6 +324,7 @@ function fCheckAllEmpty() {
   return j>=lng;
 }
 
+/* Check whether all 9 types of games are finished without error */
 function fCheckAll0() {
   var j, lng = gARCHIVE.length;
   for (j=0; j<lng; j=j+2)
@@ -315,6 +332,7 @@ function fCheckAll0() {
   return j>=lng;
 }
 
+/* Show archive content */
 function fShowArchive() {
   var elem = document.getElementById('showArchive');
   elem.innerHTML = 'rōmaji &larr; HIRAGANA: '+fTransform(gARCHIVE[0],gARCHIVE[1])+
@@ -330,22 +348,23 @@ function fShowArchive() {
   elem.parentNode.style.display = 'block';
 
   function fTransform(er,tm) {
-  var txt, x, y;
-  if (er === '') txt = '—'
-  else {
-    x = Number(er);
-    y = Number(tm);
-    if (isNaN(x) || isNaN(y)) {
-      alert('Not critical error during reading archive of results. Values ['+er+', '+tm+'] will be replace to \'—\'');
-      txt = '—'; }
-    else if (x == 1)
-      txt = x+' error, '+Math.floor(y/60)+' min '+y%60+' sec'
-    else
-      txt = x+' errors, '+Math.floor(y/60)+' min '+y%60+' sec';   }
-  return txt;
+    var txt, x, y;
+    if (er === '') txt = '—'
+    else {
+      x = Number(er);
+      y = Number(tm);
+      if (isNaN(x) || isNaN(y)) {
+        alert('Not critical error during reading archive of results. Values ['+er+', '+tm+'] will be replace to \'—\'');
+        txt = '—'; }
+      else if (x == 1)
+        txt = x+' error, '+Math.floor(y/60)+' min '+y%60+' sec'
+      else
+        txt = x+' errors, '+Math.floor(y/60)+' min '+y%60+' sec';   }
+    return txt;
   }
 }
 
+/* generate one new card with given kana at random position */
 function fGenerateNewCard (cardType, kana) {  // Generate 1 new card, clear outwardly but with value = kana
   var newCard = document.createElement(cardType);
   newCard.style.position = 'absolute';
@@ -358,6 +377,7 @@ function fGenerateNewCard (cardType, kana) {  // Generate 1 new card, clear outw
   return newCard;
 }
 
+/* when user successfully matches to last card, that means successful end of game */
 function fVictory() {
   document.getElementsByTagName('table')[0].style.outline = '10px solid yellow';
   var listElem = document.getElementsByClassName((gCardKana == 'S')?'bigH':('big'+gCardKana));
@@ -409,6 +429,7 @@ function fVictory() {
   }
 }
 
+/* load new track in audio element */
 function fLoadNewAudio(k){
   srcMp3.src = 'audio-'+gVoice+'/'+k+'.mp3';
   srcOgg.src = 'audio-'+gVoice+'/'+k+'.ogg';

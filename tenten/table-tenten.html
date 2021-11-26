@@ -7,6 +7,7 @@
 <script src='table-tenten.js' defer></script>
 <body onload='fLoad()' onunload='fUnload()'>
 
+<!-- таблица кан -->
 <table>
   <tr>
     <th>&nbsp;</th>
@@ -233,13 +234,17 @@
   </tr>
 </table>
 
+<!-- управляющие переключатели: два левых блока -->
 <div style='display:inline-block;margin: 0 0 0 50px'>
+  <!-- тип каны, являющийся основным для текущего состояния программы -->
   <fieldset style='height:75px;position:relative;'>
     <legend>&nbsp;Кана&nbsp;</legend>
     <input type='radio' name='kanaType' id='radioH' value='H' onchange='fChangeBigKana(this.value)' style='margin-top:24px;'><label for='radioH'> Хирагана &nbsp;(ひらがな)</label><br>
     <input type='radio' name='kanaType' id='radioK' value='K' onchange='fChangeBigKana(this.value)' style='margin-top:7.3px;'><label for='radioK'> Катакана &nbsp;(カタカナ)</label>
     <button type='button' onclick='fExchangeKanaType()' style="position:absolute;bottom:10px;right:24px;"><img src='exchange-arrow.png' style='height:20px;margin:2px 2px;vertical-align:middle'></button>
   </fieldset>
+  
+  <!-- настройка озвучки -->
   <fieldset>
     <legend>&nbsp;Озвучка&nbsp;</legend>
     <input type='radio' name='voiceActing' id='rAudio0' value='0' onclick='fChangeVoice(this.value)'><label for='rAudio0'> голос 1</label><br>
@@ -256,19 +261,25 @@
     <button type='button' id='btnPlay' onclick='fPlayStop()' value='off'><div></div></button>
   </fieldset>
 </div>
+
+<!-- управляющие переключатели: два правых блока -->
 <div style='display:inline-block;margin: 0 0 0 25px;vertical-align:top'>
+  <!-- что использовать в качестве дополнителной слоговой азбуки (отображается в правом нижнем углу) -->
   <fieldset style='height:75px;width:224px;'>
     <legend>&nbsp;Кана в углу&nbsp;</legend>
     <input type='radio' name='corner' id='cornerR' value='R' onchange='fChangeCorner(this.value)'><label for='cornerR'><span style='vertical-align:sub;font-size:smaller;'> ромадзи<span></span></label><br>
     <input type='radio' name='corner' id='cornerH' value='H' onchange='fChangeCorner(this.value)'><label for='cornerH'><span style='vertical-align:sub;font-size:smaller;'> хирагана</span></label><br>
     <input type='radio' name='corner' id='cornerK' value='K' onchange='fChangeCorner(this.value)'><label for='cornerK'><span style='vertical-align:sub;font-size:smaller;'> катакана</span></label>
   </fieldset>
+  
+  <!-- блок флажков дополнительных настроек -->
   <fieldset style='width:224px;'>
     <legend>&nbsp;Разное&nbsp;</legend>
     <input type='checkbox' name='cbHeadings' id='cbHeadings' onchange='fChangeHeadings()'><label for='cbHeadings'> показывать заголовок таблицы</label>
   </fieldset>
 </div>
 
+<!-- неотображаемый элемент вывода звука для озвучки нажимаемых кан -->
 <audio id='audioPlayer' onended='fAudioEnded()' preload='none'>
   <source id='srcMp3' src='audio-0/ba.mp3' type='audio/mpeg'>
   <source id='srcOgg' src='audio-0/ba.ogg' type='audio/ogg'>

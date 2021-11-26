@@ -344,19 +344,19 @@ function fShowArchive() {
   elem.parentNode.style.display = 'block';
 
   function fTransform(er,tm) {
-  var txt, x, y;
-  if (er === '') txt = '—'
-  else {
-    x = Number(er);
-    y = Number(tm);
-    if (isNaN(x) || isNaN(y)) {
-      alert('Некритическая ошибка в процессе чтения архива результатов. Значения ['+er+', '+tm+'] будут заменены на \'—\'');
-      txt = '—'; }
-    else if (x == 1)
-      txt = x+' ошибка, '+Math.floor(y/60)+' мин '+y%60+' сек'
-    else
-      txt = 'Количество ошибок: ' + x + ', '+Math.floor(y/60)+' мин '+y%60+' сек';   }
-  return txt;
+    var txt, x, y;
+    if (er === '') txt = '—'
+    else {
+      x = Number(er);
+      y = Number(tm);
+      if (isNaN(x) || isNaN(y)) {
+        alert('Некритическая ошибка в процессе чтения архива результатов. Значения ['+er+', '+tm+'] будут заменены на \'—\'');
+        txt = '—'; }
+      else if (x == 1)
+        txt = x+' ошибка, '+Math.floor(y/60)+' мин '+y%60+' сек'
+      else
+        txt = 'Количество ошибок: ' + x + ', '+Math.floor(y/60)+' мин '+y%60+' сек';   }
+    return txt;
   }
 }
 

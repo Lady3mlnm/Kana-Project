@@ -3,10 +3,10 @@
  * Date: 2017
  */
 
-var AR = ['a','i','u','e','o','ka','ki','ku','ke','ko','sa','shi','su','se','so','ta','chi','tsu',
-          'te','to','na','ni','nu','ne','no','ha','hi','fu','he','ho','ma','mi','mu','me','mo','ya',
-          '','yu','','yo','ra','ri','ru','re','ro','wa','','','','wo','n'],
-    iAR = 0,                                              // number of current element in array AR
+var AR = ['a','i','u','e','o','ka','ki','ku','ke','ko','sa','shi','su','se','so','ta','chi',
+          'tsu','te','to','na','ni','nu','ne','no','ha','hi','fu','he','ho','ma','mi','mu',
+          'me','mo','ya','','yu','','yo','ra','ri','ru','re','ro','wa','','','','wo','n'],
+    iAR = 0,                                              // index of current element in array AR
     dtl1 = document.getElementById('dtl1'),               // elements for displaying images with details
     dtl2 = document.getElementById('dtl2'),
     dtl3 = document.getElementById('dtl3'),
@@ -29,7 +29,7 @@ var AR = ['a','i','u','e','o','ka','ki','ku','ke','ko','sa','shi','su','se','so'
 //   LOAD / UNLOAD
 //*********************************************************
 
-function fLoad() {      // Whenever possible, I tried to defend against simple errors during loading
+function fLoad() {      // Whenever possible, I tried to secure against simple errors during loading
   var j;
   if (localStorage.tb_cbHeadings == 'true')        // is table headings shown
     document.getElementById('cbHeadings').checked = true
@@ -234,7 +234,7 @@ function fChangeAdjacent() {
 
 
 //*********************************************************
-//   FUNCTIONS FOR SHOWING DETAILES
+//   FUNCTIONS FOR KANA TABLE
 //*********************************************************
 
 /* when user clicks on kana in the kana table */
@@ -287,7 +287,7 @@ function fKeyDown(e){
           if (iAR <= -4) iAR += 54
           else if (iAR <= -1) iAR += 44;
           break;
-        case 27:                                    // if Esc
+        case 27:                                     // if Esc
           fEmptyCell();
           return;
       } }
@@ -302,7 +302,7 @@ function fKeyDown(e){
   }
 }
 
-/* function clears field for lange image */
+/* function clears field for large image */
 function fEmptyCell() {
   document.getElementById(AR[iAR]).lastChild.style.borderColor = 'transparent';
   dtl1.src = 'empty.gif';

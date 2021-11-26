@@ -7,6 +7,7 @@
 <script src='game-tenten.js' defer></script>
 <body onload='fLoad()' onunload='fUnload()'>
 
+<!-- таблица кан -->
 <table>
   <tr>
     <th>&nbsp;</th>
@@ -208,25 +209,28 @@
   </tr>
 </table>
 
+<!-- управляющие переключатели -->
 <fieldset>
   <legend>&nbsp;Кана в таблице&nbsp;</legend>
   <input type='radio' name='corner' id='cornerR' value='R' onchange='fChangeCorner(this.value)'><label for='cornerR'> ромадзи</label><br>
   <input type='radio' name='corner' id='cornerH' value='H' onchange='fChangeCorner(this.value)'><label for='cornerH'> хирагана</label><br>
   <input type='radio' name='corner' id='cornerK' value='K' onchange='fChangeCorner(this.value)'><label for='cornerK'> катакана</label>
 </fieldset>
+
 <fieldset style='position:relative'>
   <legend>&nbsp;Кана на карточках&nbsp;</legend>
   <input type='radio' name='card' id='cardR' value='R' onchange='fChangeCard(this.value)'><label for='cardR'> РОМАДЗИ</label><br>
   <input type='radio' name='card' id='cardH' value='H' onchange='fChangeCard(this.value)'><label for='cardH'> ХИРАГАНА</label><br>
   <input type='radio' name='card' id='cardK' value='K' onchange='fChangeCard(this.value)'><label for='cardK'> КАТАКАНА</label><br>
   <input type='radio' name='card' id='cardS' value='S' onchange='fChangeCard(this.value)'><label for='cardS'> голос</label>
-  <div style='position:absolute;top:-25px;right:365px'>
+  <div style='position:absolute;top:-25px;right:365px'>       <!-- поле для демонстрации примера каны -->
     <div id='testR' class='capR' style='display:none'></div>
     <div id='testH' class='capH' style='display:none'></div>
     <div id='testK' class='capK' style='display:none'></div>
     <div id='testS' class='capS' style='display:none'></div>
   </div>
 </fieldset>
+
 <fieldset>
   <legend>&nbsp;Озвучка&nbsp;</legend>
   <!-- <input type='radio' name='voiceActing' id='rAudio-1' value='-1' onclick='fChangeVoice(this.value)'><label for='rAudio-1'> без звука</label><br> -->
@@ -240,13 +244,14 @@
 
 <button type='button' id='buttonStart' onclick='fStartGame()' style='display:block; margin:5px 0 5px 450px'>Начать Игру</button>
 
+<!-- неотображаемый элемент вывода звука -->
 <audio id='audioPlayer' style='margin-top:10px' preload='none'>
   <source id='srcMp3' src='audio-0/ba.mp3' type='audio/mpeg'>
   <source id='srcOgg' src='audio-0/ba.ogg' type='audio/ogg'>
   ПРЕДУПРЕЖДЕНИЕ: Ваш браузер не поддерживает тег &lt;audio&gt;
 </audio>
 
-<br clear='left'> <!-- don't delete this <br>. Otherwise it will glitch -->
+<br clear='left'> <!-- don't delete this <br>, otherwise there will be glitch -->
 
 </body>
 </html>
