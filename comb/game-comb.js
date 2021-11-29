@@ -143,10 +143,10 @@ function fStartGame() {
     return;
 
   var bodyElem = document.body;
-  bodyElem.removeChild(document.getElementById('cornerR').parentNode);       // remove control panel
-  bodyElem.removeChild(document.getElementById('cardR').parentNode);
-  bodyElem.removeChild(document.getElementById('rAudio0').parentNode);
-  bodyElem.removeChild(document.getElementById('buttonStart'));
+  document.getElementById('cornerR').parentNode.remove();           // remove control panel
+  document.getElementById('cardR').parentNode.remove();
+  document.getElementById('rAudio0').parentNode.remove();
+  document.getElementById('buttonStart').remove();
 
   var j;
   var listBig = document.getElementsByClassName('bigKana');         // filling 'Big Kana' in the table
@@ -228,13 +228,13 @@ function fDragEndCell(elem) {
     return;
   if (elem.id == curCard.value) {
 
-    fLoadNewAudio(curCard.value);  //play kana
+    fLoadNewAudio(curCard.value);  // play kana
     audioPlayer.play();
     if (curCard.classList[0] == 'capK')
       elem.lastChild.style.borderColor = 'lightgoldenrodyellow'
     else
       elem.lastChild.style.borderColor = getComputedStyle(curCard).backgroundColor;
-    document.body.removeChild(curCard);
+    curCard.remove();              // remove successfully dragпув card
     var curCell = elem.getElementsByTagName('div')[1];
     curCell.style.visibility = 'visible';
     if (curRemain != 1)

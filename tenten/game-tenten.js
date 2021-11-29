@@ -142,6 +142,7 @@ function fChangeVolumeMouseUp() {  //play testKana when user change volume
 //   GAME CONTROL
 //*********************************************************
 
+/* when user clicks button "Начать Игру" */
 function fStartGame() {
   /* if (gVoice==-1 && gCardKana == 'S'&& !confirm('Вы выбрали опции играть без озвучки и без изображений на карточках.\nХотите протестировать свои телепатические способности? Вы можете попробовать.'))
     return; */
@@ -149,10 +150,10 @@ function fStartGame() {
     return;
 
   var bodyElem = document.body;
-  bodyElem.removeChild(document.getElementById('cornerR').parentNode);       // remove control panel
-  bodyElem.removeChild(document.getElementById('cardR').parentNode);
-  bodyElem.removeChild(document.getElementById('rAudio0').parentNode);
-  bodyElem.removeChild(document.getElementById('buttonStart'));
+  document.getElementById('cornerR').parentNode.remove();           // remove control panel
+  document.getElementById('cardR').parentNode.remove();
+  document.getElementById('rAudio0').parentNode.remove();
+  document.getElementById('buttonStart').remove();
 
   var j;
   var listBig = document.getElementsByClassName('bigKana');         // filling 'Big Kana' in the table
@@ -197,6 +198,7 @@ function fStartGame() {
   curDate = new Date();
 }
 
+/* when user begins to drag a card */
 function fDragStart(e) {
   e.preventDefault();
   curCard = e.currentTarget;
@@ -207,7 +209,7 @@ function fDragStart(e) {
     audioPlayer.pause();
   curCard.style.zIndex = ++curZ;
   curCard.style.opacity = 0.75;
-  curCard.style.pointerEvents = 'none';
+  curCard.style.pointerEvents = 'none';  // card should not react to pointer events
   curX = e.clientX - parseInt(curCard.style.left);
   curY = e.clientY - parseInt(curCard.style.top);
   curB = true;
@@ -215,32 +217,35 @@ function fDragStart(e) {
   curBeginT = curCard.style.top;
 }
 
+/* when user drags a card */
 function fDrag(e) {
   if (curB) {
-    e.preventDefault(); // just in case
+    e.preventDefault();  // just in case
     curCard.style.left = e.clientX - curX + 'px';
     curCard.style.top = e.clientY - curY + 'px'; }
 }
 
+/* when users releases mouse button */
 function fDragEndBody() {
   if (curB) {
     curCard.style.opacity = 1;
-    curCard.style.pointerEvents = 'auto';
+    curCard.style.pointerEvents = 'auto';  // card should react to pointer events as usual
     curB = false; }
 }
 
+/* when user releases button above cell of kana table, 'elem' contains this cell of table */
 function fDragEndCell(elem) {
   if (!curB)
     return;
   if (elem.id == curCard.value) {
 
-    fLoadNewAudio(curCard.value);  //play kana
+    fLoadNewAudio(curCard.value);  // play kana
     audioPlayer.play();
     if (curCard.classList[0] == 'capK')
       elem.lastChild.style.borderColor = 'lightgoldenrodyellow'
     else
       elem.lastChild.style.borderColor = getComputedStyle(curCard).backgroundColor;
-    document.body.removeChild(curCard);
+    curCard.remove();              // remove successfully dragпув card
     var curCell = elem.getElementsByTagName('div')[1];
     curCell.style.visibility = 'visible';
     if (curRemain != 1)
@@ -262,6 +267,7 @@ function fDragEndCell(elem) {
     curErrors++; }
 }
 
+/* when user moves the mouse pointer onto an image */
 function fMouseBodyEnter(e) {
   if (curB && e.buttons == 0)
     fDragEndBody();
@@ -272,10 +278,12 @@ function fMouseBodyEnter(e) {
 //   WORKING FUNCTIONS
 //*********************************************************
 
+/* change sign of Start button: 'Начать' or 'Начать Игру' */
 function fChangeStartButton() {
   document.getElementById('buttonStart').innerHTML = (gCornerKana == gCardKana)?'Начать':'Начать Игру';
 }
 
+/* generate one new card with given kana at random position */
 function fGenerateNewCard (cardType, kana) {  // Generate 1 new card, clear outwardly but with value = kana
   var newCard = document.createElement(cardType);
   newCard.style.position = 'absolute';
@@ -288,6 +296,7 @@ function fGenerateNewCard (cardType, kana) {  // Generate 1 new card, clear outw
   return newCard;
 }
 
+/* when user successfully matches to last card, that means successful end of game */
 function fVictory() {
   document.getElementsByTagName('table')[0].style.outline = '10px solid yellow';
   var listElem = document.getElementsByClassName((gCardKana == 'S')?'bigH':('big'+gCardKana));
@@ -302,6 +311,7 @@ function fVictory() {
     alert('Хорошо сделано!\nКоличество ошибок: '+curErrors+'\nВремя игры: '+Math.floor(t/60)+' мин '+t%60+' сек\n\nПерезагрузите страницу для продолжения.');
 }
 
+/* load new track in audio element */
 function fLoadNewAudio(k){
   srcMp3.src = 'audio-'+gVoice+'/'+k+'.mp3';
   srcOgg.src = 'audio-'+gVoice+'/'+k+'.ogg';
